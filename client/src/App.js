@@ -1,74 +1,43 @@
 import "./App.css";
-import data from "./data";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
+import CartScreen from "./screens/CartScreen";
+import { useSelector } from "react-redux";
 
 function App() {
+	const cart = useSelector((state) => state.cart);
+	const { cartItems } = cart;
+
 	return (
-		<div className='App'>
+		<BrowserRouter>
 			<div className='grid-container'>
 				<header className='row'>
 					<div>
-						<a className='brand' href='/'>
+						<Link className='brand' to='/'>
 							amazon
-						</a>
+						</Link>
 					</div>
 					<div>
-						<a href='/cart'>Cart</a>
-						<a href='/signin'>Sign In</a>
+						<Link to='/cart'>
+							Cart
+							{cartItems.length > 0 && (
+								<span className='badge'>{cartItems.length}</span>
+							)}
+						</Link>
+						<Link to='/signin'>Sign In</Link>
 					</div>
 				</header>
-				<main>
-					<div>
-						<div className='row center'>
-							{data.products.map((product) => {
-								const {
-									_id,
-									name,
-									price,
-									category,
-									countInStock,
-									description,
-									numReviews,
-									brand,
-									rating,
-									image,
-								} = product;
-								return (
-									<div className='card' key={_id}>
-										<a href='product.html'>
-											<img className='medium' src={image} alt={name} />
-										</a>
-										<div className='card-body'>
-											<a href={`/product/${_id}`}>
-												<h2>{name}</h2>
-											</a>
-											<div className='rating'>
-												<span>
-													<i className='fa fa-star'></i>{" "}
-												</span>
-												<span>
-													<i className='fa fa-star'></i>{" "}
-												</span>
-												<span>
-													<i className='fa fa-star'></i>{" "}
-												</span>
-												<span>
-													<i className='fa fa-star'></i>{" "}
-												</span>
-												<span>
-													<i className='fa fa-star'></i>{" "}
-												</span>
-											</div>
-											<div className='price'>${price}</div>
-										</div>
-									</div>
-								);
-							})}
-						</div>
-					</div>
-				</main>
+
+				<Routes>
+					<Route path='/' element={<HomeScreen />}></Route>
+					<Route path='/product/:id' element={<ProductScreen />}></Route>
+					<Route path='/cart/:id' element={<CartScreen />}></Route>
+					<Route path='/new'></Route>
+				</Routes>
 				<footer className='row center'>All right reserved</footer>
 			</div>
-		</div>
+		</BrowserRouter>
 	);
 }
 

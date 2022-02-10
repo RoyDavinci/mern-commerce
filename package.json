@@ -1,19 +1,25 @@
 {
 	"name": "amazon",
 	"version": "1.0.0",
-	"main": "index.js",
+	"main": "server/index.js",
 	"author": "RoyDavinci",
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"start": "node index.js",
-		"dev": "nodemon index.js"
+		"start": "node server/index.js",
+		"dev": "nodemon --watch server/index.js"
 	},
 	"dependencies": {
 		"bcrypt": "^5.0.1",
+		"cors": "^2.8.5",
 		"express": "^4.17.2",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.1.7",
 		"nodemon": "^2.0.15"
+	},
+	"devDependencies": {
+		"dotenv": "^15.0.0",
+		"eslint": "^8.8.0",
+		"eslint-plugin-react": "^7.28.0"
 	}
 }

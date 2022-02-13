@@ -34,21 +34,21 @@ const ProductScreen = () => {
 					<Link to='/'>Back To Home</Link>
 					<div className='row top'>
 						<div className='col-2'>
-							<img src={product?.image} alt={product?.name} />
+							<img src={product?.product.image} alt={product?.product.name} />
 						</div>
 						<div className='col-1'>
 							<ul>
 								<li>
-									<h1>{product?.name}</h1>
+									<h1>{product?.product.name}</h1>
 								</li>
 								<li>
 									<Rating
-										rating={product?.rating}
-										numReviews={product?.numReviews}
+										rating={product?.product.rating}
+										numReviews={product?.product.numReviews}
 									></Rating>
 								</li>
-								<li>Price :${product?.price}</li>
-								<li>Description: {product?.description}</li>
+								<li>Price :${product?.product.price}</li>
+								<li>Description: {product?.product.description}</li>
 							</ul>
 						</div>
 						<div className='col-1'>
@@ -57,14 +57,14 @@ const ProductScreen = () => {
 									<li>
 										<div className='row'>
 											<div>price</div>
-											<div className='price'>${product?.price}</div>
+											<div className='price'>${product?.product.price}</div>
 										</div>
 									</li>
 									<li>
 										<div className='row'>
 											<div>status</div>
 											<div>
-												{product?.countInStock > 0 ? (
+												{product?.product.countInStock > 0 ? (
 													<span className='success'>In Stock</span>
 												) : (
 													<span className='error'>Unavailable</span>
@@ -73,7 +73,7 @@ const ProductScreen = () => {
 										</div>
 									</li>
 
-									{product?.countInStock > 0 && (
+									{product?.product.countInStock > 0 && (
 										<>
 											<li>
 												<div className='row'>
@@ -85,18 +85,18 @@ const ProductScreen = () => {
 															onChange={(e) => setQty(e.target.value)}
 															id=''
 														>
-															{[...Array(product?.countInStock).keys()].map(
-																(quantity) => {
-																	return (
-																		<option
-																			value={quantity + 1}
-																			key={quantity + 1}
-																		>
-																			{quantity + 1}
-																		</option>
-																	);
-																}
-															)}
+															{[
+																...Array(product?.product.countInStock).keys(),
+															].map((quantity) => {
+																return (
+																	<option
+																		value={quantity + 1}
+																		key={quantity + 1}
+																	>
+																		{quantity + 1}
+																	</option>
+																);
+															})}
 														</select>
 													</div>
 												</div>

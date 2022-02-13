@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useLocation, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../actions/cartActions";
+import { addToCart, removeFromCart } from "../actions/cartActions";
 import MessageBox from "../components/MessageBox";
 
 const CartScreen = () => {
@@ -11,15 +11,16 @@ const CartScreen = () => {
 	const navigate = useNavigate();
 	const cart = useSelector((state) => state.cart);
 	const { cartItems } = cart;
-	console.log(cartItems);
 
 	const { search } = location;
 	const qty = search ? Number(search.split("=")[1]) : 1;
 
-	const removeFromCart = (id) => {};
+	const removeFromCartFunc = (id) => {
+		dispatch(removeFromCart(id));
+	};
 
 	const checkOutHandler = () => {
-		navigate("/signin?redirect=shipping");
+		navigate("/login?redirect=/shipping");
 	};
 
 	useEffect(() => {
@@ -80,7 +81,7 @@ const CartScreen = () => {
 										<div>
 											<button
 												type='button'
-												onClick={() => removeFromCart(cartItem.product)}
+												onClick={() => removeFromCartFunc(cartItem.product)}
 											>
 												Delete
 											</button>
@@ -103,7 +104,7 @@ const CartScreen = () => {
 								{cartItems.reduce(
 									(acc, cur) => acc + cur.price * cur.quantity,
 									0
-								)}{" "}
+								)}
 								price)
 							</h2>
 						</li>
